@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prototipo - Servicios Hogar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #e5e7eb;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: sans-serif;
+        }
+        /* Estilo simulando un iPhone/Celular */
+        .phone-mockup {
+            width: 375px;
+            height: 812px;
+            background-color: #f9fafb;
+            border: 12px solid #1f2937;
+            border-radius: 40px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            display: flex;
+            flex-direction: column;
+        }
+        .screen {
+            display: none;
+            flex-direction: column;
+            height: 100%;
+        }
+        .screen.active {
+            display: flex;
+        }
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+        }
+        .bottom-nav {
+            background-color: white;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-around;
+            padding: 0.75rem 0;
+            font-size: 0.75rem;
+            color: #6b7280;
+        }
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+        }
+        .nav-item:hover { color: #2563eb; }
+    </style>
+</head>
+<body>
+
+    <div class="phone-mockup">
+        
+        <!-- PANTALLA 1: INICIO (LOGIN) -->
+        <div id="pantalla-1" class="screen active bg-blue-600 text-white justify-center px-6">
+            <h1 class="text-4xl font-bold text-center mb-2">HogarFix</h1>
+            <p class="text-center mb-10 text-blue-200">Encuentra a tu profesional</p>
+            
+            <input type="email" placeholder="Correo electrónico" class="w-full p-3 mb-4 rounded text-black outline-none">
+            <input type="password" placeholder="Contraseña" class="w-full p-3 mb-8 rounded text-black outline-none">
+            
+            <button onclick="alert('Usuario no encontrado. Para probar el prototipo, por favor haz clic en Crear Cuenta nueva.')" class="w-full bg-white text-blue-600 font-bold p-3 rounded mb-4 hover:bg-gray-100 shadow-lg">
+                Iniciar Sesión
+            </button>
+            
+            <div class="text-center mt-6 border-t border-blue-400 pt-6">
+                <span class="text-blue-100 text-sm block mb-2">¿Sos nuevo en HogarFix?</span>
+                <button onclick="navegar('pantalla-11')" class="w-full bg-transparent border-2 border-white text-white font-bold p-3 rounded hover:bg-white hover:text-blue-600 transition-colors">
+                    Crear Cuenta nueva
+                </button>
+            </div>
+        </div>
+
+        <!-- PANTALLA 11: REGISTRO - DATOS PERSONALES -->
+        <div id="pantalla-11" class="screen bg-gray-100">
+            <div class="bg-blue-600 text-white p-4 flex items-center shadow-md">
+                <span onclick="navegar('pantalla-1')" class="cursor-pointer mr-4 text-xl font-bold">←</span>
+                <span class="font-bold text-lg">Tus Datos</span>
+            </div>
+            <div class="content flex flex-col justify-center">
+                <p class="text-gray-600 mb-6 text-sm text-center">Completá tus datos para crear tu cuenta gratuita en HogarFix.</p>
+                
+                <input type="text" placeholder="Nombre" class="w-full p-3 mb-4 rounded border border-gray-300 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
+                <input type="text" placeholder="Apellido" class="w-full p-3 mb-4 rounded border border-gray-300 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
+                <input type="tel" placeholder="Teléfono (Ej: 2954...)" class="w-full p-3 mb-4 rounded border border-gray-300 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
+                <input type="email" placeholder="Correo electrónico" class="w-full p-3 mb-4 rounded border border-gray-300 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
+                <input type="password" placeholder="Crear contraseña" class="w-full p-3 mb-8 rounded border border-gray-300 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
+                
+                <button onclick="navegar('pantalla-9')" class="w-full bg-blue-600 text-white font-bold p-4 rounded-lg shadow-lg hover:bg-blue-700 transition-colors">
+                    Siguiente
+                </button>
+            </div>
+        </div>
+
+        <!-- PANTALLA 9: REGISTRO - SELECCIÓN DE ROL -->
+        <div id="pantalla-9" class="screen bg-gray-100 justify-center px-6">
+            <div class="text-center mb-8">
+                <span onclick="navegar('pantalla-11')" class="cursor-pointer text-gray-500 block text-left mb-4 text-xl font-bold">← Atrás</span>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">¡Bienvenido!</h2>
+                <p class="text-gray-600">¿Cómo vas a usar HogarFix?</p>
+            </div>
+            
+            <!-- Botón Cliente -->
+            <div onclick="navegar('pantalla-2')" class="bg-white p-6 rounded-xl shadow-md mb-6 border-2 border-transparent hover:border-blue-500 cursor-pointer flex flex-col items-center transition-all hover:-translate-y-1">
+                <span class="text-5xl mb-3">🛠️</span>
+                <h3 class="font-bold text-lg text-gray-800">Soy Cliente</h3>
+                <p class="text-sm text-gray-500 text-center mt-2">Necesito contratar profesionales para arreglos en mi hogar.</p>
+            </div>
+            
+            <!-- Botón Profesional -->
+            <div onclick="navegar('pantalla-10')" class="bg-white p-6 rounded-xl shadow-md border-2 border-transparent hover:border-blue-500 cursor-pointer flex flex-col items-center transition-all hover:-translate-y-1">
+                <span class="text-5xl mb-3">👷‍♂️</span>
+                <h3 class="font-bold text-lg text-gray-800">Soy Profesional</h3>
+                <p class="text-sm text-gray-500 text-center mt-2">Quiero ofrecer mis servicios, organizar mi agenda y conseguir clientes.</p>
+            </div>
+        </div>
+
+        <!-- PANTALLA 10: REGISTRO - OFICIOS DEL PROFESIONAL -->
+        <div id="pantalla-10" class="screen bg-gray-100">
+            <div class="bg-blue-600 text-white p-4 flex items-center shadow-md">
+                <span onclick="navegar('pantalla-9')" class="cursor-pointer mr-4 text-xl font-bold">←</span>
+                <span class="font-bold text-lg">Tus Especialidades</span>
+            </div>
+            <div class="content">
+                <p class="text-gray-600 mb-6 text-sm">Seleccioná los oficios que realizás. Podés elegir más de uno, esto ayudará a que los clientes te encuentren más fácil.</p>
+                
+                <div class="bg-white rounded-lg shadow-sm border p-4 mb-8 space-y-4">
+                    <label class="flex items-center space-x-3 cursor-pointer p-2 hover:bg-blue-50 rounded transition-colors">
+                        <input type="checkbox" class="w-5 h-5 text-blue-600 rounded" checked>
+                        <span class="text-gray-700 font-medium">🚰 Plomería</span>
+                    </label>
+                    <label class="flex items-center space-x-3 cursor-pointer p-2 hover:bg-blue-50 rounded transition-colors">
+                        <input type="checkbox" class="w-5 h-5 text-blue-600 rounded">
+                        <span class="text-gray-700 font-medium">⚡ Electricidad</span>
+                    </label>
+                    <label class="flex items-center space-x-3 cursor-pointer p-2 hover:bg-blue-50 rounded transition-colors">
+                        <input type="checkbox" class="w-5 h-5 text-blue-600 rounded">
+                        <span class="text-gray-700 font-medium">🔥 Gasista Matriculado</span>
+                    </label>
+                    <label class="flex items-center space-x-3 cursor-pointer p-2 hover:bg-blue-50 rounded transition-colors">
+                        <input type="checkbox" class="w-5 h-5 text-blue-600 rounded">
+                        <span class="text-gray-700 font-medium">🔑 Cerrajería</span>
+                    </label>
+                    <label class="flex items-center space-x-3 cursor-pointer p-2 hover:bg-blue-50 rounded transition-colors">
+                        <input type="checkbox" class="w-5 h-5 text-blue-600 rounded">
+                        <span class="text-gray-700 font-medium">❄️ Aire Acondicionado</span>
+                    </label>
+                </div>
+                
+                <button onclick="finalizarRegistro()" class="w-full bg-blue-600 text-white font-bold p-4 rounded-lg shadow-lg hover:bg-blue-700 transition-all" id="btn-registro">
+                    Finalizar y Entrar
+                </button>
+            </div>
+        </div>
+
+        <!-- FLUJO CLIENTE -->
+        <!-- PANTALLA 2: HOME CLIENTE -->
+        <div id="pantalla-2" class="screen">
+            <div class="bg-blue-600 text-white p-4 text-center font-bold text-lg">¿Qué necesitas arreglar?</div>
+            <div class="content">
+                <input type="text" placeholder="Buscar (ej. Plomero)..." class="w-full p-3 mb-6 rounded border border-gray-300 outline-none">
+                
+                <button onclick="buscarPorCategoria('urgencia')" class="w-full bg-red-600 text-white font-bold p-4 rounded-xl mb-6 shadow-lg hover:bg-red-700 animate-pulse">
+                    🚨 ¡URGENCIA 24/7! 🚨<br><span class="text-xs font-normal">Ver disponibles ahora</span>
+                </button>
+
+                <h2 class="font-bold mb-3 text-gray-700">Categorías</h2>
+                <div class="grid grid-cols-2 gap-4">
+                    <div onclick="buscarPorCategoria('plomeria')" class="bg-white p-4 rounded-lg shadow text-center cursor-pointer hover:bg-blue-50 border transition-colors">🚰 Plomería</div>
+                    <div onclick="buscarPorCategoria('electricidad')" class="bg-white p-4 rounded-lg shadow text-center cursor-pointer hover:bg-blue-50 border transition-colors">⚡ Electricidad</div>
+                    <div onclick="buscarPorCategoria('gas')" class="bg-white p-4 rounded-lg shadow text-center cursor-pointer hover:bg-blue-50 border transition-colors">🔥 Gasista</div>
+                    <div onclick="buscarPorCategoria('cerrajeria')" class="bg-white p-4 rounded-lg shadow text-center cursor-pointer hover:bg-blue-50 border transition-colors">🔑 Cerrajería</div>
+                </div>
+            </div>
+            <div class="bottom-nav">
+                <div class="nav-item text-blue-600 font-bold">🏠 Home</div>
+                <div class="nav-item" onclick="navegar('pantalla-8')">📅 Citas</div>
+                <div class="nav-item text-red-500" onclick="navegar('pantalla-1')">🚪 Salir</div>
+            </div>
+        </div>
+
+        <!-- PANTALLA 3: RESULTADOS -->
+        <div id="pantalla-3" class="screen">
+            <div class="bg-blue-600 text-white p-4 flex items-center">
+                <span onclick="navegar('pantalla-2')" class="cursor-pointer mr-4 text-xl">←</span>
+                <span id="titulo-resultados" class="font-bold text-lg">Resultados</span>
+            </div>
+            <div id="lista-resultados" class="content bg-gray-100">
+                <!-- Se llena con JavaScript dinámicamente -->
+            </div>
+        </div>
+
+        <!-- PANTALLA 4: PERFIL PROFESIONAL -->
+        <div id="pantalla-4" class="screen">
+            <div class="bg-blue-600 text-white p-4 flex items-center">
+                <span onclick="navegar('pantalla-3')" class="cursor-pointer mr-4 text-xl">←</span>
+                <span class="font-bold text-lg">Perfil</span>
+            </div>
+            <div class="content">
+                <div class="text-center mb-6">
+                    <div class="w-24 h-24 bg-gray-200 rounded-full mx-auto mb-2 flex items-center justify-center text-5xl border-4 border-white shadow-md">👤</div>
+                    <h2 id="perfil-nombre" class="text-2xl font-bold">Juan Pérez</h2>
+                    <p id="perfil-oficio" class="text-gray-600">Plomero Matriculado</p>
+                    <p id="perfil-estrellas" class="text-yellow-500 mt-1">⭐⭐⭐⭐⭐</p>
+                </div>
+                <div class="mb-6">
+                    <h3 class="font-bold text-gray-800 mb-1">Sobre mí</h3>
+                    <p id="perfil-bio" class="text-sm text-gray-600 text-justify">Especialista en filtraciones, destapaciones y cañerías. Más de 10 años de experiencia. Trabajo rápido y limpio.</p>
+                </div>
+                <button onclick="navegar('pantalla-5')" class="w-full bg-blue-600 text-white font-bold p-4 rounded-lg shadow hover:bg-blue-700">
+                    📅 Solicitar Cita
+                </button>
+            </div>
+        </div>
+
+        <!-- PANTALLA 5: FORMULARIO CITA -->
+        <div id="pantalla-5" class="screen">
+            <div class="bg-blue-600 text-white p-4 flex items-center">
+                <span onclick="navegar('pantalla-4')" class="cursor-pointer mr-4 text-xl">←</span>
+                <span class="font-bold text-lg">Nueva Cita</span>
+            </div>
+            <div class="content">
+                <p class="mb-4 text-gray-600 text-sm">Solicitando visita a <b id="cita-prof-nombre">Juan Pérez</b></p>
+                
+                <label class="block text-sm font-bold mb-1">Fecha</label>
+                <input type="date" class="w-full p-2 mb-4 border rounded">
+                
+                <label class="block text-sm font-bold mb-1">Horario preferido</label>
+                <input type="time" class="w-full p-2 mb-4 border rounded">
+                
+                <label class="block text-sm font-bold mb-1">¿Cuál es el problema?</label>
+                <textarea rows="3" class="w-full p-2 mb-6 border rounded" placeholder="Ej: Se rompió un caño bajo la mesada..."></textarea>
+                
+                <button onclick="confirmarCita()" class="w-full bg-green-600 text-white font-bold p-4 rounded-lg shadow hover:bg-green-700">
+                    Confirmar Solicitud
+                </button>
+            </div>
+        </div>
+
+        <!-- FLUJO PROFESIONAL -->
+        <!-- PANTALLA 6: HOME PROFESIONAL -->
+        <div id="pantalla-6" class="screen">
+            <div class="bg-gray-800 text-white p-4 text-center font-bold text-lg">Mi Agenda</div>
+            <div class="content bg-gray-100">
+                <h2 class="font-bold text-gray-600 mb-3 uppercase text-sm">Nuevas Solicitudes</h2>
+                
+                <div class="bg-white p-4 rounded-lg shadow mb-4 border-l-4 border-blue-500">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="font-bold text-gray-800">Ana Estudiante</h3>
+                        <span class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">Mañana, 10:00 AM</span>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-3">"Se me inundó el baño, necesito ayuda urgente."</p>
+                    <div class="flex gap-2">
+                        <button class="flex-1 bg-green-500 text-white py-2 rounded font-bold text-sm">Aceptar</button>
+                        <button class="flex-1 bg-red-100 text-red-600 py-2 rounded font-bold text-sm">Rechazar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="bottom-nav">
+                <div class="nav-item text-blue-600 font-bold">📅 Agenda</div>
+                <div class="nav-item" onclick="navegar('pantalla-7')">👤 Mi Perfil</div>
+                <div class="nav-item text-red-500" onclick="navegar('pantalla-1')">🚪 Salir</div>
+            </div>
+        </div>
+
+        <!-- PANTALLA 7: CONFIGURACIÓN PROFESIONAL -->
+        <div id="pantalla-7" class="screen">
+            <div class="bg-gray-800 text-white p-4 text-center font-bold text-lg">Mi Perfil</div>
+            <div class="content">
+                <div class="bg-white p-4 rounded-lg shadow border mb-6">
+                    <h3 class="font-bold text-gray-800 mb-2">Modo Urgencia</h3>
+                    <p class="text-sm text-gray-600 mb-4">Si activas esto, aparecerás primero en las búsquedas 24/7 de los clientes.</p>
+                    <label class="flex items-center cursor-pointer">
+                        <div class="relative">
+                            <input type="checkbox" class="sr-only" onchange="toggleUrgencia(this)">
+                            <div id="toggle-bg" class="block bg-gray-300 w-14 h-8 rounded-full transition-colors"></div>
+                            <div id="toggle-dot" class="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition-transform"></div>
+                        </div>
+                        <div class="ml-3 font-bold text-gray-700" id="toggle-text">Apagado</div>
+                    </label>
+                </div>
+                <p class="text-sm text-gray-500">Aquí irían las opciones para editar zonas, agregar oficios y cambiar la foto de perfil.</p>
+            </div>
+            <div class="bottom-nav">
+                <div class="nav-item" onclick="navegar('pantalla-6')">📅 Agenda</div>
+                <div class="nav-item text-blue-600 font-bold">👤 Mi Perfil</div>
+                <div class="nav-item text-red-500" onclick="navegar('pantalla-1')">🚪 Salir</div>
+            </div>
+        </div>
+
+        <!-- PANTALLA 8: MIS CITAS (CLIENTE) -->
+        <div id="pantalla-8" class="screen">
+            <div class="bg-blue-600 text-white p-4 text-center font-bold text-lg">Mis Citas</div>
+            <div class="content bg-gray-100">
+                <h2 class="font-bold text-gray-600 mb-3 uppercase text-sm">Próximos Servicios</h2>
+                
+                <div class="bg-white p-4 rounded-lg shadow mb-4 border-l-4 border-green-500">
+                    <div class="flex justify-between items-start mb-2">
+                        <div>
+                            <h3 class="font-bold text-gray-800">Juan Pérez</h3>
+                            <p class="text-xs text-gray-500">Plomería</p>
+                        </div>
+                        <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded font-bold">Aceptada</span>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-3">Mañana, 14:30 hs</p>
+                    
+                    <!-- BOTÓN DE WHATSAPP -->
+                    <button onclick="abrirWhatsApp()" class="w-full bg-[#25D366] text-white font-bold p-3 rounded-lg shadow hover:bg-green-600 flex items-center justify-center gap-2">
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12.031 21.031a9.011 9.011 0 0 1-4.593-1.258l-.33-.195-3.411.895.912-3.325-.214-.34A8.995 8.995 0 0 1 3.031 12c0-4.963 4.038-9 9-9s9 4.037 9 9-4.038 9-9 9zM12.031 1.031C5.973 1.031 1.031 5.973 1.031 12c0 1.933.504 3.821 1.458 5.494L1.031 23l5.635-1.477A10.957 10.957 0 0 0 12.031 23c6.058 0 11-4.973 11-11s-4.942-11-11-11zm5.992 14.887c-.302-.15-1.785-.882-2.062-.982-.277-.1-.479-.15-.681.15-.202.301-.782.982-.958 1.183-.176.201-.353.226-.655.075-2.096-1.048-3.438-1.921-4.757-4.186-.176-.301.176-.282.465-.858.075-.15.038-.282-.019-.432-.056-.15-.681-1.644-.933-2.253-.245-.591-.497-.512-.681-.522l-.583-.01c-.202 0-.529.075-.806.376-.277.301-1.058 1.034-1.058 2.518 0 1.484 1.083 2.918 1.234 3.118.151.201 2.122 3.238 5.14 4.538 1.933.832 2.68.807 3.183.731.564-.085 1.785-.729 2.037-1.433.251-.703.251-1.306.176-1.433-.075-.126-.277-.201-.579-.352z"/></svg>
+                        Contactar por WhatsApp
+                    </button>
+                </div>
+            </div>
+            <div class="bottom-nav">
+                <div class="nav-item" onclick="navegar('pantalla-2')">🏠 Home</div>
+                <div class="nav-item text-blue-600 font-bold">📅 Citas</div>
+                <div class="nav-item text-red-500" onclick="navegar('pantalla-1')">🚪 Salir</div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // --- BASE DE DATOS SIMULADA ---
+        const baseDatos = {
+            plomeria: [
+                { id: 1, nombre: "Juan Pérez", oficio: "Plomero Matriculado", estrellas: "⭐⭐⭐⭐⭐ (24)", estado: "Disponible", bio: "Especialista en filtraciones, destapaciones y cañerías. Más de 10 años de experiencia. Trabajo rápido y limpio." },
+                { id: 2, nombre: "Carlos Gómez", oficio: "Plomero y Cloacas", estrellas: "⭐⭐⭐⭐ (12)", estado: "Ocupado ahora", bio: "Hago reparaciones generales de cañerías e instalación de artefactos de baño." }
+            ],
+            electricidad: [
+                { id: 3, nombre: "Roberto Silva", oficio: "Electricista Domiciliario", estrellas: "⭐⭐⭐⭐⭐ (30)", estado: "Disponible", bio: "Instalaciones eléctricas completas, arreglos de cortocircuitos y colocación de luminarias." },
+                { id: 4, nombre: "Miguel Ángel", oficio: "Técnico Electricista", estrellas: "⭐⭐⭐ (5)", estado: "Disponible", bio: "Cambio de cableado antiguo y tableros. Diagnóstico de fallas eléctricas." }
+            ],
+            gas: [
+                { id: 5, nombre: "Luis Martínez", oficio: "Gasista Matriculado", estrellas: "⭐⭐⭐⭐⭐ (50)", estado: "Disponible", bio: "Planos, habilitaciones y detección de pérdidas de gas con instrumental de precisión." }
+            ],
+            cerrajeria: [
+                { id: 6, nombre: "Mario Bros", oficio: "Cerrajero", estrellas: "⭐⭐⭐⭐ (18)", estado: "Disponible 24hs", bio: "Apertura de puertas sin romper, cambio de combinaciones, copias de llaves codificadas." }
+            ],
+            urgencia: [
+                { id: 6, nombre: "Mario Bros", oficio: "Cerrajero", estrellas: "⭐⭐⭐⭐ (18)", estado: "Disponible 24hs", bio: "Apertura de puertas sin romper, cambio de combinaciones, copias de llaves codificadas." },
+                { id: 1, nombre: "Juan Pérez", oficio: "Plomero Matriculado", estrellas: "⭐⭐⭐⭐⭐ (24)", estado: "Disponible 24hs", bio: "Especialista en filtraciones, destapaciones y cañerías. Más de 10 años de experiencia. Trabajo rápido y limpio." },
+                { id: 3, nombre: "Roberto Silva", oficio: "Electricista", estrellas: "⭐⭐⭐⭐⭐ (30)", estado: "Disponible 24hs", bio: "Instalaciones eléctricas completas, arreglos de cortocircuitos y colocación de luminarias." }
+            ]
+        };
+
+        let profesionalSeleccionado = null;
+
+        // Carga los resultados según la categoría tocada
+        function buscarPorCategoria(cat) {
+            const titulo = document.getElementById('titulo-resultados');
+            const lista = document.getElementById('lista-resultados');
+            
+            // Actualizar Título
+            if(cat === 'plomeria') titulo.innerText = "Plomeros";
+            else if(cat === 'electricidad') titulo.innerText = "Electricistas";
+            else if(cat === 'gas') titulo.innerText = "Gasistas";
+            else if(cat === 'cerrajeria') titulo.innerText = "Cerrajeros";
+            else if(cat === 'urgencia') titulo.innerText = "Urgencias 24/7";
+
+            // Construir la lista
+            lista.innerHTML = '';
+            const resultados = baseDatos[cat] || [];
+            
+            resultados.forEach(prof => {
+                const ocupado = prof.estado.includes('Ocupado');
+                const opacidad = ocupado ? 'opacity-50' : 'cursor-pointer hover:-translate-y-1';
+                const accion = ocupado ? '' : `onclick="verPerfil(${prof.id}, '${cat}')"`;
+                const colorEstado = ocupado ? 'text-red-500 font-bold' : 'text-green-600 font-bold';
+
+                lista.innerHTML += `
+                    <div ${accion} class="bg-white p-4 rounded-lg shadow mb-4 flex items-center ${opacidad} transition-all border border-transparent hover:border-blue-400">
+                        <div class="w-12 h-12 bg-gray-200 rounded-full mr-4 flex-shrink-0 flex items-center justify-center text-xl shadow-inner">👤</div>
+                        <div>
+                            <h3 class="font-bold text-gray-800">${prof.nombre}</h3>
+                            <p class="text-sm text-gray-600">${prof.oficio}</p>
+                            <p class="text-xs mt-1 ${colorEstado}">${prof.estado} ${ocupado ? '' : '• ' + prof.estrellas}</p>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            navegar('pantalla-3');
+        }
+
+        // Carga los datos del perfil tocado
+        function verPerfil(id, cat) {
+            profesionalSeleccionado = baseDatos[cat].find(p => p.id === id);
+            if(!profesionalSeleccionado) return;
+
+            document.getElementById('perfil-nombre').innerText = profesionalSeleccionado.nombre;
+            document.getElementById('perfil-oficio').innerText = profesionalSeleccionado.oficio;
+            document.getElementById('perfil-estrellas').innerText = profesionalSeleccionado.estrellas.split(' ')[0]; // Deja solo las estrellas
+            document.getElementById('perfil-bio').innerText = profesionalSeleccionado.bio;
+            
+            document.getElementById('cita-prof-nombre').innerText = profesionalSeleccionado.nombre;
+
+            navegar('pantalla-4');
+        }
+
+        // Lógica de navegación entre pantallas
+        function navegar(idPantallaDestino) {
+            // Ocultar todas las pantallas
+            const pantallas = document.querySelectorAll('.screen');
+            pantallas.forEach(p => p.classList.remove('active'));
+            
+            // Mostrar la pantalla solicitada
+            document.getElementById(idPantallaDestino).classList.add('active');
+        }
+
+        // Simular confirmación de cita
+        function confirmarCita() {
+            alert("¡Cita solicitada con éxito! Esperando confirmación del profesional.");
+            navegar('pantalla-2'); // Volver al home del cliente
+        }
+
+        // Lógica visual del interruptor de urgencias
+        function toggleUrgencia(checkbox) {
+            const bg = document.getElementById('toggle-bg');
+            const dot = document.getElementById('toggle-dot');
+            const text = document.getElementById('toggle-text');
+
+            if (checkbox.checked) {
+                bg.classList.replace('bg-gray-300', 'bg-red-500');
+                dot.style.transform = 'translateX(100%)';
+                text.innerText = "¡ESTOY DISPONIBLE AHORA!";
+                text.classList.replace('text-gray-700', 'text-red-600');
+            } else {
+                bg.classList.replace('bg-red-500', 'bg-gray-300');
+                dot.style.transform = 'translateX(0)';
+                text.innerText = "Apagado";
+                text.classList.replace('text-red-600', 'text-gray-700');
+            }
+        }
+
+        // Lógica para redirigir a WhatsApp
+        function abrirWhatsApp() {
+            // En la app real, este número vendría de la base de datos (del perfil del profesional)
+            const numeroTelefono = "5491100000000"; // Número ficticio de Argentina
+            
+            // Mensaje pre-armado para facilitarle la vida al cliente
+            const mensaje = "Hola Juan, te escribo desde la app HogarFix para coordinar los detalles de la visita de mañana a las 14:30 hs por el problema de plomería.";
+            
+            // Convertimos el mensaje a formato URL (reemplaza espacios por %20, etc.)
+            const mensajeCodificado = encodeURIComponent(mensaje);
+            
+            // Armamos la URL oficial de WhatsApp
+            const urlWhatsApp = `https://wa.me/${numeroTelefono}?text=${mensajeCodificado}`;
+            
+            // Abre WhatsApp en una pestaña o ventana nueva (o en la app móvil)
+            window.open(urlWhatsApp, '_blank');
+        }
+
+        // Lógica visual para la pantalla de finalización de registro del profesional
+        function finalizarRegistro() {
+            const btn = document.getElementById('btn-registro');
+            const textoOriginal = btn.innerText;
+            
+            // Simulamos un tiempo de carga/guardado en la base de datos
+            btn.innerText = "Guardando perfil...";
+            btn.classList.add('animate-pulse', 'bg-blue-400');
+            btn.classList.remove('bg-blue-600');
+            
+            setTimeout(() => {
+                btn.innerText = textoOriginal;
+                btn.classList.remove('animate-pulse', 'bg-blue-400');
+                btn.classList.add('bg-blue-600');
+                
+                // Redirigir al inicio del profesional
+                navegar('pantalla-6');
+            }, 1500);
+        }
+    </script>
+</body>
+</html>
